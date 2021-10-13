@@ -7,6 +7,7 @@ print("F = Fermi: you have a correct digit in the correct place value")
 print("P = Pico: you have a correct digit, but not in the correct place value")
 
 playAgain = 'p'
+userGuessList = []
 
 #define main game function
 def main():
@@ -32,7 +33,6 @@ def main():
         userNumberInput = str(input("Guess a 3 digit number: "))
         userNumberList = [str(i) for i in userNumberInput]
         acceptableDigitList = ['0','1','2','3','4','5','6','7','8','9']
-        userGuessList = []
 
         while len(userNumberList) != 3 or userNumberList[0] not in acceptableDigitList or userNumberList[1] not in acceptableDigitList or userNumberList[2] not in acceptableDigitList:
             if len(userNumberList) != 3:
@@ -43,15 +43,22 @@ def main():
                 userNumberInput = str(input("Please guess a number using 3 digits: "))
                 userNumberList = [str(i) for i in userNumberInput]
 
-        userGuessList.append(userNumberInput)
-        for userNumberInput in userGuessList:
-            print(userGuessList)
-
+        #userGuessList.append(userNumberInput)
+        #numberElementsUserGuessList = len(userGuessList)
+        #print(userGuessList)
+        #print(numberElementsUserGuessList)
+        userGuessCount()
         return userNumberList
 
     userNumberList = userGuess()
 
+    #function to count the number of guesses
+    def userGuessCount():
+        userGuessList.append(userNumberList)
+        numberElementsUserGuessList = len(userGuessList)
+        return numberElementsUserGuessList
 
+    numberElementsUserGuessList = userGuessCount()
 
 
     #check user guess against mystery number
@@ -112,6 +119,7 @@ def main():
     #when user correctly guesses the number
     if userNumberList == mysteryNumberList:
         print("Nice job! You correctly guessed the number, " + mysteryNumber + "!")
+        print("It took you, " + str(numberElementsUserGuessList) + "guesses.")
         playAgain = input("Press 'p' to play again. Press any other key to exit. ")
         if playAgain.lower() != "p":
             quit()
